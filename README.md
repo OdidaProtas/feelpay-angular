@@ -1,27 +1,67 @@
-# Angular
+### FEELPAY ANGULAR INTEGRATION GUIDE
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+1. First, install the `ngx-script-loader` package:
 
-## Development server
+```bash
+npm install ngx-script-loader
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2. Use the `ngx-script-loader` to load the external script in your Angular component:
 
-## Code scaffolding
+Assuming you've created an Angular component named `FeelPayButtonComponent`:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```typescript
+import { Component, OnInit } from "@angular/core";
+import { ScriptLoaderService } from "ngx-script-loader"; // Import the ScriptLoaderService
 
-## Build
+@Component({
+  selector: "app-feel-pay-button",
+  template: `
+    <div>
+      <!-- The container for the FeelPay button -->
+      <div id="dreamfeel-pay-button"></div>
+    </div>
+  `,
+})
+export class FeelPayButtonComponent implements OnInit {
+  constructor(private scriptLoader: ScriptLoaderService) {}
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  ngOnInit(): void {
+    // Load the external script
+    this.scriptLoader.loadScript("https://feelpay.vercel.app/packages/v1").then(() => {
+      // The script is loaded, initialize FeelPayWidget
+      this.initializeFeelPay();
+    });
+  }
 
-## Running unit tests
+  initializeFeelPay(): void {
+    // After the script is loaded, you can use it here
+    const orderDetails = {
+      element: "dreamfeel-pay-button",
+      clientId: "afc17c43531c2441",
+      clientSecret: "67d6bc1a5843172286ce6ca701f80094",
+      description: "",
+      order: {
+        // ...
+      },
+      onSuccess: (detail: any) => {
+        // Handle success
+        console.log(detail);
+      },
+      onError: (err: any) => {
+        // Handle error
+        console.log(err);
+      },
+      onInit: () => {},
+      onUserCancel: () => {},
+    };
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    const feelpay = new (window as any).FeelPayWidget(orderDetails);
+    feelpay.init().then((pay: any) => {
+      console.log(pay);
+    });
+  }
+}
+```
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+In this example, `ngx-script-loader` is used to handle loading the external script. Once the script is loaded, the `initializeFeelPay` method is called to initialize the FeelPayWidget as before.
