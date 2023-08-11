@@ -38,8 +38,8 @@ export class FeelPayButtonComponent implements OnInit {
     // After the script is loaded, you can use it here
     const orderDetails = {
       element: "dreamfeel-pay-button",
-      clientId: "afc17c43531c2441",
-      clientSecret: "67d6bc1a5843172286ce6ca701f80094",
+      clientId: "",
+      clientSecret: "",
       description: "",
       order: {
         // ...
