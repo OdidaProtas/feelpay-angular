@@ -11,7 +11,7 @@ export class FeelpayButtonComponent {
   ngOnInit(): void {
     // Load the external script
     this.scriptLoader
-      .loadScript('https://feelpay.vercel.app/packages/v1')
+      .loadScript('https://feelpay.io/packages/v1')
       .subscribe(() => {
         // The script is loaded, initialize FeelPayWidget
         this.initializeFeelPay();
@@ -23,7 +23,7 @@ export class FeelpayButtonComponent {
     const orderDetails = {
       element: 'dreamfeel-pay-button',
       clientId: '289e48591ad7b8e1',
-      clientSecret: '67d6bc1a5843172286ce6ca701f80094',
+      clientSecret: '9eb2a27c779d9236f64f4a18cb2840ec',
       description: '',
       order: {
         // ...
