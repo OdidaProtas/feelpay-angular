@@ -22,7 +22,7 @@ export class FeelpayButtonComponent {
     // After the script is loaded, you can use it here
     const orderDetails = {
       element: 'dreamfeel-pay-button',
-      clientId: 'afc17c43531c2441',
+      clientId: '289e48591ad7b8e1',
       clientSecret: '67d6bc1a5843172286ce6ca701f80094',
       description: '',
       order: {
